@@ -2,3 +2,5 @@ discord
 profanity_filter
 spacy
 pyjokes
+setuptools 
+wheel
