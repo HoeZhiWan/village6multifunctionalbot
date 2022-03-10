@@ -62,5 +62,5 @@ class MusicCog(commands.Cog):
     await ws.voice_state(str(guild_id), channel_id)
 
 def setup(bot):
-    bot.add_cog(Music(bot))
+    bot.add_cog(MusicCog(bot))
     print('Music extension has been loaded.')
