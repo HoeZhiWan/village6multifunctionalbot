@@ -7,4 +7,3 @@ wheel
 youtube_dl
 PyNaCl
 asyncio
-libopus
