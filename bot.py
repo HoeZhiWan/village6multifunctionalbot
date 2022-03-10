@@ -14,7 +14,7 @@ pf = ProfanityFilter()
 pf.censor_char = '@'
 
 intents = discord.Intents.default()
-intents.member = True
+intents.members = True
 
 client = commands.Bot(command_prefix=".", intents=intents)
         
