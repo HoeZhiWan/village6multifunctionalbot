@@ -5,4 +5,4 @@ pyjokes
 setuptools 
 wheel
 asyncio
-lavalink
+pafy

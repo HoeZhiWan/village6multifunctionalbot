@@ -13,7 +13,10 @@ except: # If not present, we download
 pf = ProfanityFilter()
 pf.censor_char = '@'
 
-client = commands.Bot(command_prefix=".")
+intents = discord.Intents.default()
+intents.member = True
+
+client = commands.Bot(command_prefix=".", intents=intents)
         
 @client.event
 async def on_ready():
