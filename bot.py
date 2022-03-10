@@ -66,5 +66,7 @@ class Greetings(commands.Cog):
             await ctx.send('Hello {0.name}... This feels familiar.'.format(member))
         self._last_member = member
         
-bot.add_cog(Greetings(bot)) 
+def setup(bot):
+    bot.add_cog(Greetings(bot))
+    
 client.run(os.environ['DISCORD_TOKEN'])
