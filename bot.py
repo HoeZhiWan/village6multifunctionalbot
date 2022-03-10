@@ -47,5 +47,7 @@ async def joke(ctx):
     
 client.load_extension("cogs.greetings")
 client.load_extension("cogs.music")
+
+#something
     
 client.run(os.environ['DISCORD_TOKEN'])
