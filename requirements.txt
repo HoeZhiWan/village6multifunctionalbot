@@ -7,3 +7,4 @@ wheel
 asyncio
 pafy
 youtube_dl
+PyNaCl
