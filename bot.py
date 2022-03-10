@@ -17,10 +17,7 @@ client = commands.Bot(command_prefix=".")
         
 @client.event
 async def on_ready():
-    print('Logged in as')
-    print(client.user.name)
-    print(client.user.id)
-    print('------')
+    print('We have logged in as {0.user}'.format(client))
         
 @client.event
 async def on_message(message):
@@ -34,8 +31,8 @@ async def on_message(message):
         embed.set_author(name = message.author.display_name, icon_url = message.author.avatar_url)
         await message.channel.send(embed=embed)
     
-    if message.channel.startswith("Hello"):
-        await message.channel.send("")
+    if message.content.startswith("Hello"):
+        await message.channel.send("World")
         
 @client.command()
 async def ping(ctx):
