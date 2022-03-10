@@ -4,6 +4,5 @@ spacy
 pyjokes
 setuptools 
 wheel
-youtube_dl
-PyNaCl
 asyncio
+lavalink
