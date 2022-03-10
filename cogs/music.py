@@ -189,5 +189,5 @@ class Player(commands.Cog):
         await ctx.send("The current song has been resumed.")
 
 def setup(bot):
-    bot.add_cog(MusicCog(bot))
+    bot.add_cog(Player(bot))
     print('Music extension has been loaded.')
