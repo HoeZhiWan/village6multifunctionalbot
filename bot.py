@@ -7,7 +7,11 @@ import os
         
 client = commands.Bot(command_prefix=".")
 
-spacy.load('en')
+try:
+    nlp = spacy.load("en")
+except: # If not present, we download
+    spacy.cli.download("en")
+    nlp = spacy.load("en")
 pf = ProfanityFilter()
 pf.censor_char = '@'
         
