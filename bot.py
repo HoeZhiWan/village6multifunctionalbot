@@ -15,4 +15,4 @@ async def on_message(message):
     if message.content == "Hello":
         await message.channel.send("World")
         
-client.run(os.getenv['DISCORD_TOKEN'])
+client.run(os.environ['DISCORD_TOKEN'])
