@@ -31,7 +31,7 @@ async def on_message(message):
         embed.set_author(name = message.author.display_name, icon_url = message.author.avatar_url)
         await message.channel.send(embed=embed)
         
-@client.command():
+@client.command()
 async def ping(ctx):
     await ctx.reply(f"Pong! {round(client.latency * 1000)}ms latency.")
         
