@@ -1,6 +1,5 @@
 discord
 profanity_filter
-git+https://github.com/Cupcakus/pafy
 pyjokes
 setuptools 
 wheel
