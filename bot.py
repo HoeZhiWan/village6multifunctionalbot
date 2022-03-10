@@ -14,6 +14,9 @@ except: # If not present, we download
     nlp = spacy.load("en")
 pf = ProfanityFilter()
 pf.censor_char = '@'
+
+joke = pyjokes.get_joke(language='en', category= 'neutral')
+print(joke)
         
 @client.event
 async def on_ready():
@@ -33,7 +36,8 @@ async def on_message(message):
         
 @client.command(help="A random nerdy joke")
 async def joke(ctx):
-    joke=pyjokes.get_joke(language='en', category= 'neutral')
+    joke = pyjokes.get_joke(language='en', category= 'neutral')
+    print(joke)
     await ctx.reply(joke)
         
 client.run(os.environ['DISCORD_TOKEN'])
