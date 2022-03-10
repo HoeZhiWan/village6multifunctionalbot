@@ -1,5 +1,4 @@
 discord
-discord.ext
 profanity_filter
 spacy
 pyjokes
