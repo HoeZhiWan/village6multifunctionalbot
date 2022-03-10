@@ -34,6 +34,8 @@ async def on_message(message):
     if message.content.startswith("Hello"):
         await message.channel.send("World")
         
+    await client.process_commands(message)
+        
 @client.command()
 async def ping(ctx):
     await ctx.reply(f"Pong! {round(client.latency * 1000)}ms latency.")
