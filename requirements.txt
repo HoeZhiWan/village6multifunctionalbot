@@ -6,3 +6,4 @@ setuptools
 wheel
 asyncio
 pafy
+youtube_dl
