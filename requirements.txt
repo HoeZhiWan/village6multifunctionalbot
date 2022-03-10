@@ -6,3 +6,4 @@ setuptools
 wheel
 youtube_dl
 PyNaCl
+asyncio
