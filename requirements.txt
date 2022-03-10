@@ -1,6 +1,6 @@
 discord
 profanity_filter
-spacy
+-e git+git://github.com/mohamed-challal/pafy.git@develop#egg=pafy
 pyjokes
 setuptools 
 wheel
