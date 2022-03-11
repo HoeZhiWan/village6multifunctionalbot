@@ -3,7 +3,7 @@ from discord.ext import commands
 import os
 
 #cogs
-from music import Player
+from music import Music
 
 intents = discord.Intents.default()
 intents.members = True
@@ -16,7 +16,7 @@ async def on_ready():
     print('We have logged in as {0.user}'.format(client))
     
     await client.wait_until_ready()
-    client.add_cog(Player(client))
+    client.add_cog(Music(client))
         
 #@client.event
 #async def on_message(message):
@@ -24,7 +24,6 @@ async def on_ready():
 #        return
 #        
 #    await client.process_commands(message)
-
     
 #cogs
 client.load_extension("cogs.greetings")

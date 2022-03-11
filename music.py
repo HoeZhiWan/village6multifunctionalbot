@@ -4,7 +4,7 @@ import pafy
 import discord
 from discord.ext import commands
 
-class Player(commands.Cog):
+class Music(commands.Cog):
     def __init__(self, bot):
         self.bot = bot 
         self.song_queue = {}
@@ -34,6 +34,7 @@ class Player(commands.Cog):
 
     @commands.command()
     async def join(self, ctx):
+        """Tell the bot to join your VC"""
         if ctx.author.voice is None:
             return await ctx.send("You are not connected to a voice channel, please connect to the channel you want the bot to join.")
 
@@ -44,6 +45,7 @@ class Player(commands.Cog):
 
     @commands.command()
     async def leave(self, ctx):
+        """Tell the bot to leave the VC"""
         if ctx.voice_client is not None:
             return await ctx.voice_client.disconnect()
 
@@ -51,6 +53,7 @@ class Player(commands.Cog):
 
     @commands.command()
     async def play(self, ctx, *, song=None):
+        """Play a song"""
         if song is None:
             return await ctx.send("You must include a song to play.")
 
@@ -83,6 +86,7 @@ class Player(commands.Cog):
 
     @commands.command()
     async def search(self, ctx, *, song=None):
+        """Search for a song"""
         if song is None: return await ctx.send("You forgot to include a song to search for.")
 
         await ctx.send("Searching for song, this may take a few seconds.")
@@ -101,6 +105,7 @@ class Player(commands.Cog):
 
     @commands.command()
     async def queue(self, ctx): # display the current guilds queue
+        """Check for the queue"""
         if len(self.song_queue[ctx.guild.id]) == 0:
             return await ctx.send("There are currently no songs in the queue.")
 
@@ -116,6 +121,7 @@ class Player(commands.Cog):
 
     @commands.command()
     async def skip(self, ctx):
+        """Skip the current song"""
         if ctx.voice_client is None:
             return await ctx.send("I am not playing any song.")
 
@@ -128,7 +134,7 @@ class Player(commands.Cog):
         poll = discord.Embed(title=f"Vote to Skip Song by - {ctx.author.name}#{ctx.author.discriminator}", description="**80% of the voice channel must vote to skip for it to pass.**", colour=discord.Colour.blue())
         poll.add_field(name="Skip", value=":white_check_mark:")
         poll.add_field(name="Stay", value=":no_entry_sign:")
-        poll.set_footer(text="Voting ends in 15 seconds.")
+        poll.set_footer(text="Voting ends in 5 seconds.")
 
         poll_msg = await ctx.send(embed=poll) # only returns temporary message, we need to get the cached message to get the reactions
         poll_id = poll_msg.id
@@ -136,7 +142,7 @@ class Player(commands.Cog):
         await poll_msg.add_reaction(u"\u2705") # yes
         await poll_msg.add_reaction(u"\U0001F6AB") # no
         
-        await asyncio.sleep(15) # 15 seconds to vote
+        await asyncio.sleep(5) # 5 seconds to vote
 
         poll_msg = await ctx.channel.fetch_message(poll_id)
         
@@ -172,6 +178,7 @@ class Player(commands.Cog):
 
     @commands.command()
     async def pause(self, ctx):
+        """Pause the current song"""
         if ctx.voice_client.is_paused():
             return await ctx.send("I am already paused.")
 
@@ -180,6 +187,7 @@ class Player(commands.Cog):
 
     @commands.command()
     async def resume(self, ctx):
+        """Resume the current song"""
         if ctx.voice_client is None:
             return await ctx.send("I am not connected to a voice channel.")
 
