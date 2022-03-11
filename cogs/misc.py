@@ -79,12 +79,18 @@ class Misc(commands.Cog):
             await ctx.message.add_reaction("🔴")
             
     @commands.command()
-    async def img(self, ctx, *, tag="Programmer"):
+    async def img(self, ctx, *, tag):
         """Getting a random image and output"""
+        tag = tag or "forest"
         embed = discord.Embed(title="Image!",colour=discord.Colour.blue())
         embed.set_image(url=random.choice(gis_function(tag)))
         await ctx.reply(embed=embed)
         await ctx.message.add_reaction("🟢")
+        
+    @commands.command()
+    async def ping(self, ctx):
+        """Ping with latency"""
+        await ctx.reply(f"Pong! {round(self.bot.latency * 1000)}ms latency.")
         
 
 def setup(bot):
