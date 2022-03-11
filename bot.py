@@ -16,6 +16,7 @@ pf.censor_char = '@'
 
 intents = discord.Intents.default()
 intents.members = True
+intents.guilds = True
 
 client = commands.Bot(command_prefix=".", intents=intents)
         
