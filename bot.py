@@ -23,6 +23,9 @@ client = commands.Bot(command_prefix=".", intents=intents)
 @client.event
 async def on_ready():
     print('We have logged in as {0.user}'.format(client))
+    
+    await bot.wait_unti_ready()
+    client.add_cog(Player(client))
         
 @client.event
 async def on_message(message):
@@ -51,7 +54,6 @@ async def joke(ctx):
     await ctx.reply(f"{joke}")
     
 client.load_extension("cogs.greetings")
-client.add_cog(Player(client))
 
 #something
     

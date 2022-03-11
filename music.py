@@ -9,9 +9,6 @@ class Player(commands.Cog):
         self.bot = bot 
         self.song_queue = {}
         
-        for guild in self.bot.guilds:
-            print(f"Does this work? {guild.id}")
-        
         self.setup()
 
     def setup(self):
