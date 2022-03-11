@@ -45,7 +45,6 @@ async def on_message(message):
         await message.channel.send("World")
         
     await client.handler.propagate(message)
-    await client.process_commands(message)
         
     await client.process_commands(message)
         
