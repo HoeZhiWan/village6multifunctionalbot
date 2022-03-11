@@ -25,7 +25,7 @@ bot = discord.Client
 async def on_ready():
     print('We have logged in as {0.user}'.format(client))
     
-    await bot.wait_unti_ready()
+    await bot.wait_until_ready()
     client.add_cog(Player(client))
         
 @client.event
