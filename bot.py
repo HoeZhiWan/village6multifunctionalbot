@@ -5,7 +5,7 @@ import spacy
 import pyjokes
 import os
 from music import Player
-from AntiSpam import AntiSpamHandler
+from antispam import AntiSpamHandler
         
 try:
     nlp = spacy.load("en")
