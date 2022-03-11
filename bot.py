@@ -19,12 +19,13 @@ intents.members = True
 intents.guilds = True
 
 client = commands.Bot(command_prefix=".", intents=intents)
+bot = discord.Client
         
 @client.event
 async def on_ready():
     print('We have logged in as {0.user}'.format(client))
     
-    await client.wait_unti_ready()
+    await bot.wait_unti_ready()
     client.add_cog(Player(client))
         
 @client.event
