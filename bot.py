@@ -4,8 +4,10 @@ from profanity_filter import ProfanityFilter
 import spacy
 import pyjokes
 import os
-from music import Player
 from antispam import AntiSpamHandler
+
+#cogs
+from music import Player
 
 try:
     nlp = spacy.load("en")
@@ -57,8 +59,8 @@ async def joke(ctx):
     joke = pyjokes.get_joke(language='en', category= 'neutral')
     await ctx.reply(f"{joke}")
     
+#cogs
 client.load_extension("cogs.greetings")
-
-#something
+client.load_extension("cogs.misc")
     
 client.run(os.environ['DISCORD_TOKEN'])
