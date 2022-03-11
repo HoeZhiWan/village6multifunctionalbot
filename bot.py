@@ -5,7 +5,7 @@ import spacy
 import pyjokes
 import os
 from music import Player
-import discordantispam 
+from AntiSpam import AntiSpamHandler
         
 try:
     nlp = spacy.load("en")
@@ -20,7 +20,7 @@ intents.members = True
 intents.guilds = True
 
 client = commands.Bot(command_prefix=".", intents=intents)
-client.handler = discordantispam.AntiSpamHandler(client)
+client.handler = AntiSpamHandler(client)
         
 @client.event
 async def on_ready():
