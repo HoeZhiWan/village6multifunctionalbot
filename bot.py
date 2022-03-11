@@ -10,7 +10,6 @@ intents.members = True
 intents.guilds = True
 
 client = commands.Bot(command_prefix=".", intents=intents)
-client.handler = AntiSpamHandler(client)
         
 @client.event
 async def on_ready():
