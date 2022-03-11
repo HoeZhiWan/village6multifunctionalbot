@@ -79,7 +79,7 @@ class Misc(commands.Cog):
             await ctx.message.add_reaction("🔴")
             
     @commands.command()
-    async def img(self, ctx *, tag="Programmer"):
+    async def img(self, ctx, *, tag="Programmer"):
         """Getting a random image and output"""
         embed = discord.Embed(title="Image!",colour=discord.Colour.blue())
         embed.set_image(url=random.choice(gis_function(tag)))
