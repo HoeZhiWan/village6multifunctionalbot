@@ -11,3 +11,5 @@ Discord-Anti-Spam
 bs4
 requests
 lxml
+random
+google_images_search

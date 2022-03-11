@@ -2,6 +2,25 @@ from discord.ext import commands
 import discord
 import requests
 from bs4 import BeautifulSoup
+import random
+import os
+from google_images_search import GoogleImagesSearch
+
+google_api_key = os.getenv('google_api_key')
+cse_code = "6ed98d73beaf19a75"
+gis= GoogleImagesSearch(google_api_key, cse_code)
+def gis_function(tag):
+  _search_params= {
+  'q': tag,
+  'num': 10,
+  'fileType': 'jpg|png',
+  'safe': 'medium', ##
+  'imgType': 'stock', ##
+  'imgSize': 'medium', ##
+  }
+  gis.search(search_params=_search_params)
+  print("Did a Google Image Search!")
+  return [link.url for link in gis.results()]
 
 def movie_(title):
   url = requests.get(f'https://www.imdb.com/find?q={title}&s=tt&ttype=ft&ref_').text
@@ -48,7 +67,6 @@ def movie_(title):
 class Misc(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self._last_member = None
 
     @commands.command()
     async def movie(self, ctx, *, title=None):
@@ -59,6 +77,15 @@ class Misc(commands.Cog):
         else:
             await ctx.reply("Title can't be empty")
             await ctx.message.add_reaction("🔴")
+            
+    @commands.command()
+    async def img(self, ctx *, tag="Programmer"):
+        """Getting a random image and output"""
+        embed = discord.Embed(title="Image!",colour=discord.Colour.blue())
+        embed.set_image(url=random.choice(gis_function(tag)))
+        await ctx.reply(embed=embed)
+        await ctx.message.add_reaction("🟢")
         
+
 def setup(bot):
     bot.add_cog(Misc(bot))
