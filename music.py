@@ -15,7 +15,6 @@ class Player(commands.Cog):
         for guild in self.bot.guilds:
             self.song_queue[guild.id] = []
             print(f"Added {guild.id} into song_queue dictionary.")
-        print("Hello")
 
     async def check_queue(self, ctx):
         if len(self.song_queue[ctx.guild.id]) > 0:

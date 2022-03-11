@@ -5,6 +5,7 @@ import spacy
 import pyjokes
 import os
 from music import Player
+import discordantispam 
         
 try:
     nlp = spacy.load("en")
@@ -19,6 +20,7 @@ intents.members = True
 intents.guilds = True
 
 client = commands.Bot(command_prefix=".", intents=intents)
+client.handler = discordantispam.AntiSpamHandler(client)
         
 @client.event
 async def on_ready():
@@ -41,6 +43,9 @@ async def on_message(message):
     
     if message.content.startswith("Hello"):
         await message.channel.send("World")
+        
+    await client.handler.propagate(message)
+    await client.process_commands(message)
         
     await client.process_commands(message)
         
