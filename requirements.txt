@@ -10,3 +10,4 @@ PyNaCl
 Discord-Anti-Spam
 bs4
 requests
+lxml
