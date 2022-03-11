@@ -6,7 +6,9 @@ import pyjokes
 import os
 from music import Player
 from antispam import AntiSpamHandler
-        
+
+
+# Added by calming waves
 try:
     nlp = spacy.load("en")
 except: # If not present, we download
