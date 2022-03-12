@@ -32,5 +32,3 @@ client.load_extension("cogs.fun")
 client.load_extension("cogs.moderation")
 
 client.run(os.environ['DISCORD_TOKEN'])
-
-#Testing one two three
