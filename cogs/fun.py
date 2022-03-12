@@ -86,7 +86,7 @@ class Board():
               if all(v == "O" for v in i):
                   return 'O'
   
-          if len(self.board.filled) == 9:
+          if len(board.filled) == 9:
               return 'Draw'
   
 def run_game():
@@ -177,7 +177,7 @@ class Fun(commands.Cog):
         await ctx.message.clear_reaction("🟢")
         
     @commands.command()
-    async def ttoe(self, ctx, p2=None):
+    async def tttoe(self, ctx, p2=None):
         p2 = p2 or ctx.message.author.mention
         if self.db['started'] == True:
             await ctx.send(f' A game is ongoing between {self.db["p1"]} and {self.db["p2"]}')  
@@ -224,6 +224,7 @@ class Fun(commands.Cog):
       
                         if self.board.check_game() == None:
                             pass
+                        
                         elif self.board.check_game() == 'O':
                             await ctx.send('Player O is the winner! ')
                             self.db['started'] = False
