@@ -380,7 +380,7 @@ class Fun(commands.Cog):
         await ctx.send(ball_gen(question))
         
     @commands.command()
-    async def gif(ctx,topic='cute',*args):
+    async def gif(self, ctx, topic='cute', *args):
       for i in args:
         topic += ' ' + i
       await ctx.send(embed=generate_embed_gif(topic))
