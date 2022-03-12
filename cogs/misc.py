@@ -99,6 +99,8 @@ def quotes_():
 
   embed = discord.Embed(title=quote, color=discord.Color.purple())
   embed.set_author(name=author,icon_url=img[0]['src'],url=author_url)
+  
+  return embed
 
 class Misc(commands.Cog):
     def __init__(self, bot):
