@@ -39,8 +39,9 @@ class Moderation(commands.Cog):
             int(amount)
         except:
             return await ctx.reply("Please provide a valid number")
-        amount += 1
-        await ctx.channel.purge(limit=amount)
+        else:
+            amount += 1
+            await ctx.channel.purge(limit=amount)
         
 def setup(bot):
     bot.add_cog(Moderation(bot))
