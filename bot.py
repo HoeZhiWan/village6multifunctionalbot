@@ -26,7 +26,7 @@ async def on_ready():
 #    await client.process_commands(message)
 
 #cogs
-client.load_extension("cogs.greetings")
+client.load_extension("cogs.info")
 client.load_extension("cogs.misc")
 client.load_extension("cogs.fun")
 client.load_extension("cogs.moderation")

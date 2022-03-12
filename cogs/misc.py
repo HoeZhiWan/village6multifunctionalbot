@@ -5,7 +5,6 @@ from bs4 import BeautifulSoup
 import random
 import os
 from google_images_search import GoogleImagesSearch
-import re
 
 google_api_key = os.getenv('google_api_key')
 cse_code = "6ed98d73beaf19a75"
@@ -83,24 +82,10 @@ def movie_(title):
     embed.set_image(url=img)
   return embed
 
-def quotes_():
-  r = requests.get("https://zenquotes.io/api/random", timeout=10)
+emoji_list = [letter for letter in "😀😁😂🤣😃😄😅😆😗🥰😘😍😎😋😊😉😙☺😚🙂🤗🤩🤔🤨😮😣😥😏🙄😶😑😐🤐😯😪😫🥱😴😌😛🙃😕😔😓😒🤤😝😜🤑😲☹🙁😖😞😟😤😬🤯😩😨😧😦😭😢😰😱🥵🥶😳🤪😵🥴🤮🤢🤕🤒😷😡🤬😠❤🧡💛💚💙💜🤎🖤💖💗💓💞💕❣💔🤍💘💝💟💌💢💥💤💦💨💫🕳🚛🚜🚲🦼🚕🚗🚑🦼🚜🚙🛹⛰🧭🗺🌏🏗🏘🌆🌅🌄🌃🌁⛺💈🛎🧳🌩🌦☁🌀🌬🌡🌚🌔🌖🌟🌞☀🌜🌛🌙⛄☃❄⚡⛱🔥💧🌊☔🌠☄🌡🌬👨‍👩‍👦‍👦👩‍❤️‍👩👨‍❤️‍👨💑🦿🦾🧠⛷🦴👀👁👥👤👩🏽‍🤝‍🧑🏿🎏🎎🎍🎗🎭🎁🎪🎨🧶🎑🎊👡👠🖊🖋📂📁✏🗒📤✒📦🖊📬🖌📆📍📋✂📐📇🖇⌚⏱🥠🥙🍚🍗🧇🥙🌮🍱🍤🍶🥂🥄🍺🍴🍽🧃🍨🍵🍶🍯🍾🍻🥃🍍🌿🌴🍃🌳🍁🍂🌲"]
 
-  data = r.json()[0]
-
-  author = data['a']
-  quote = data['q']
-
-  url = requests.get("https://zenquotes.io/authors", timeout=10).text
-  soup = BeautifulSoup(url, 'lxml')
-
-  img = soup.findAll('img', alt=re.compile(f"^{author}$", re.I))
-  author_url = f"https://zenquotes.io{img[0].parent['href'].strip('..')}"
-
-  embed = discord.Embed(title=quote, color=discord.Color.purple())
-  embed.set_author(name=author,icon_url=img[0]['src'],url=author_url)
-  
-  return embed
+def generate_emoji():
+  return random.choice(emoji_list)
 
 class Misc(commands.Cog):
     def __init__(self, bot):
@@ -132,10 +117,9 @@ class Misc(commands.Cog):
         await ctx.message.add_reaction("🟢")
         
     @commands.command()
-    async def quotes(self, ctx):
-        """Random Quotes from Famous People"""
-        await ctx.reply(embed=quotes_())
-        await ctx.message.add_reaction("🟢")
+    async def emoji(self, ctx):
+        """Give a random emoji"""
+        await ctx.message.channel.send(generate_emoji())
         
 
 def setup(bot):
