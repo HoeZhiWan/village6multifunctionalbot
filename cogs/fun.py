@@ -3,11 +3,44 @@ import pyjokes
 import discord
 import random
 import asyncio
+import giphy_client
+from giphy_client.rest import ApiException
 
 emoji_list = [letter for letter in "😀😁😂🤣😃😄😅😆😗🥰😘😍😎😋😊😉😙☺😚🙂🤗🤩🤔🤨😮😣😥😏🙄😶😑😐🤐😯😪😫🥱😴😌😛🙃😕😔😓😒🤤😝😜🤑😲☹🙁😖😞😟😤😬🤯😩😨😧😦😭😢😰😱🥵🥶😳🤪😵🥴🤮🤢🤕🤒😷😡🤬😠❤🧡💛💚💙💜🤎🖤💖💗💓💞💕❣💔🤍💘💝💟💌💢💥💤💦💨💫🕳🚛🚜🚲🦼🚕🚗🚑🦼🚜🚙🛹⛰🧭🗺🌏🏗🏘🌆🌅🌄🌃🌁⛺💈🛎🧳🌩🌦☁🌀🌬🌡🌚🌔🌖🌟🌞☀🌜🌛🌙⛄☃❄⚡⛱🔥💧🌊☔🌠☄🌡🌬👨‍👩‍👦‍👦👩‍❤️‍👩👨‍❤️‍👨💑🦿🦾🧠⛷🦴👀👁👥👤👩🏽‍🤝‍🧑🏿🎏🎎🎍🎗🎭🎁🎪🎨🧶🎑🎊👡👠🖊🖋📂📁✏🗒📤✒📦🖊📬🖌📆📍📋✂📐📇🖇⌚⏱🥠🥙🍚🍗🧇🥙🌮🍱🍤🍶🥂🥄🍺🍴🍽🧃🍨🍵🍶🍯🍾🍻🥃🍍🌿🌴🍃🌳🍁🍂🌲"]
 
+def generate_gif(q,limit):
+    api_instance = giphy_client.DefaultApi()
+    api_key = 'dc6zaTOxFJmzC'
+
+    offset = 0 
+    rating = 'g' 
+    lang = 'en'
+    fmt = 'json'
+
+    try:
+        api_response = api_instance.gifs_search_get(api_key, q, limit=limit, offset=offset, lang=lang,
+                                                    fmt=fmt)
+        api_response = repr(api_response)
+        lst = list()
+        url = eval(api_response)
+        for i in url['data']:
+            lst.append(i['images']['downsized']['url'])
+    except ApiException as e:
+        print("Exception when calling DefaultApi->gifs_search_get: %s\n" % e)
+    try:
+      return random.choice(lst)
+    except:
+        return"https://media4.giphy.com/media/zLCiUWVfex7ji/giphy.gif?cid=e1bb72ff1iuai32kxryjxrkiuvm7v8koh2jn8c2n4hj7i3x1&rid=giphy.gif&ct=g"
+
 def generate_emoji():
   return random.choice(emoji_list)
+
+def generate_embed_gif(topic):
+  embed = discord.Embed(title="Gifs Function ON", description=f"Sending GIF:\n", color=discord.Color.from_rgb(r(), r(), r()))
+  embed.set_image(url=generate_gif(topic,100))
+  embed.set_footer(text='--- Successful ---')
+
+  return embed
 
 class Board():
       def init_board(self):
@@ -345,6 +378,12 @@ class Fun(commands.Cog):
     @commands.command(aliases=['8ball','eightball'])
     async def _8ball(self, ctx,*,question):
         await ctx.send(ball_gen(question))
+        
+    @commands.command()
+    async def gif(ctx,topic='cute',*args):
+      for i in args:
+        topic += ' ' + i
+      await ctx.send(embed=generate_embed_gif(topic))
 
         
 def setup(bot):
