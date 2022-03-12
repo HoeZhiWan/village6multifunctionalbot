@@ -124,7 +124,7 @@ class Board():
             if all(v == "O" for v in i):
                 return 'O'
   
-        return self.board
+        print(self.board)
         if len(self.board.filled) == 9:
             return 'Draw'
   
@@ -308,8 +308,8 @@ class Fun(commands.Cog):
                             else:
                                 player = 'o'
                             self.db['cp'] = player.upper()
-                
-                        await ctx.send(f"Its player {player.upper()}'s turn. Enter a number: ")
+                            print(self.db)
+                            await ctx.send(f"Its player {player.upper()}'s turn. Enter a number: ")
                 else:
                     await ctx.send('No games have been started yet. ')
             else:
