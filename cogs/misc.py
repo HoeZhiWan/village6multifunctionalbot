@@ -5,6 +5,7 @@ from bs4 import BeautifulSoup
 import random
 import os
 from google_images_search import GoogleImagesSearch
+import re
 
 google_api_key = os.getenv('google_api_key')
 cse_code = "6ed98d73beaf19a75"
@@ -32,22 +33,36 @@ def movie_(title):
   img = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png"
 
   if movie_result:
-  
+    
     movie_url = f"https://www.imdb.com/{movie_result.a['href']}plotsummary/"
     movie = f"https://www.imdb.com/{movie_result.a['href']}"
 
-    url = requests.get(movie_url).text
-    soup = BeautifulSoup(url, 'lxml')
+    url2 = requests.get(movie_url).text
+    soup2 = BeautifulSoup(url2, 'lxml')
 
-    plot = soup.find('ul', id="plot-summaries-content")
+    plot = soup2.find('ul', id="plot-summaries-content")
     if plot:
       summary = plot.p.text
     else:
-      summary = f"No summary found for {title}"
+      summary = "No summary found"
 
-    if soup.find("img", class_='poster'):
-      img = soup.find("img", class_='poster')['src']
-    title_block = soup.find('h3', itemprop="name")
+    try:
+      url3 = requests.get(movie).text
+      soup3 = BeautifulSoup(url3, 'lxml')
+
+      mediaviewer = soup3.find('a', class_="ipc-lockup-overlay ipc-focusable")['href']
+
+      url4 = requests.get(f"https://www.imdb.com{mediaviewer}").text
+      soup4 = BeautifulSoup(url4, 'lxml')
+
+      imageid = mediaviewer.split("/")[4]
+      image_tag = f"{imageid}-curr"
+      img = soup4.find("img", attrs={'data-image-id': image_tag})["src"]
+
+    except:
+      img = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png"
+    
+    title_block = soup2.find('h3', itemprop="name")
 
     name = title_block.a.text
     year = title_block.span.text.strip()
@@ -56,13 +71,34 @@ def movie_(title):
       title_ = f'{name} {year}'
     else:
       title_ = name
+      
   else:
     title_ = "No Results"
     summary = f'No result found for **"{title}"**'
   
   embed = discord.Embed(title=title_, color=0xFFFF00, url=movie, description=summary)
-  embed.set_thumbnail(url=img)
+  if img == "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png":
+    embed.set_thumbnail(url=img)
+  else:
+    embed.set_image(url=img)
   return embed
+
+def quotes_():
+  r = requests.get("https://zenquotes.io/api/random", timeout=10)
+
+  data = r.json()[0]
+
+  author = data['a']
+  quote = data['q']
+
+  url = requests.get("https://zenquotes.io/authors", timeout=10).text
+  soup = BeautifulSoup(url, 'lxml')
+
+  img = soup.findAll('img', alt=re.compile(f"^{author}$", re.I))
+  author_url = f"https://zenquotes.io{img[0].parent['href'].strip('..')}"
+
+  embed = discord.Embed(title=quote, color=discord.Color.purple())
+  embed.set_author(name=author,icon_url=img[0]['src'],url=author_url)
 
 class Misc(commands.Cog):
     def __init__(self, bot):
@@ -91,6 +127,13 @@ class Misc(commands.Cog):
     async def ping(self, ctx):
         """Ping with latency"""
         await ctx.reply(f"Pong! {round(self.bot.latency * 1000)}ms latency.")
+        await ctx.message.add_reaction("🟢")
+        
+    @commands.command():
+    async def quotes(self, ctx):
+        """Random Quotes from Famous People"""
+        await ctx.reply(embed=quotes_())
+        await ctx.message.add_reaction("🟢")
         
 
 def setup(bot):
