@@ -36,7 +36,7 @@ class Moderation(commands.Cog):
         """Clear a specified amount of message"""
         amount = amount or 10
         try:
-            int(amount)
+            amount = int(amount)
         except:
             await ctx.reply("Please provide a valid number")
             return 
