@@ -178,7 +178,7 @@ class Fun(commands.Cog):
         
     @commands.command()
     async def ttoe(self, ctx, p2=None):
-        p2 = p2 or ctx.message.author.id
+        p2 = p2 or ctx.message.author.mention
         if self.db['started'] == True:
             await ctx.send(f' A game is ongoing between {self.db["p1"]} and {self.db["p2"]}')  
         else:
