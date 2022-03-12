@@ -4,6 +4,11 @@ import discord
 import random
 import asyncio
 
+emoji_list = [letter for letter in "😀😁😂🤣😃😄😅😆😗🥰😘😍😎😋😊😉😙☺😚🙂🤗🤩🤔🤨😮😣😥😏🙄😶😑😐🤐😯😪😫🥱😴😌😛🙃😕😔😓😒🤤😝😜🤑😲☹🙁😖😞😟😤😬🤯😩😨😧😦😭😢😰😱🥵🥶😳🤪😵🥴🤮🤢🤕🤒😷😡🤬😠❤🧡💛💚💙💜🤎🖤💖💗💓💞💕❣💔🤍💘💝💟💌💢💥💤💦💨💫🕳🚛🚜🚲🦼🚕🚗🚑🦼🚜🚙🛹⛰🧭🗺🌏🏗🏘🌆🌅🌄🌃🌁⛺💈🛎🧳🌩🌦☁🌀🌬🌡🌚🌔🌖🌟🌞☀🌜🌛🌙⛄☃❄⚡⛱🔥💧🌊☔🌠☄🌡🌬👨‍👩‍👦‍👦👩‍❤️‍👩👨‍❤️‍👨💑🦿🦾🧠⛷🦴👀👁👥👤👩🏽‍🤝‍🧑🏿🎏🎎🎍🎗🎭🎁🎪🎨🧶🎑🎊👡👠🖊🖋📂📁✏🗒📤✒📦🖊📬🖌📆📍📋✂📐📇🖇⌚⏱🥠🥙🍚🍗🧇🥙🌮🍱🍤🍶🥂🥄🍺🍴🍽🧃🍨🍵🍶🍯🍾🍻🥃🍍🌿🌴🍃🌳🍁🍂🌲"]
+
+def generate_emoji():
+  return random.choice(emoji_list)
+
 class Board():
       def init_board(self):
           self.board = """
@@ -103,6 +108,10 @@ class Fun(commands.Cog):
         self.db['turn'] = 0
         self.db['started'] = False
 
+    @commands.command()
+    async def emoji(self, ctx):
+        """Give a random emoji"""
+        await ctx.message.channel.send(generate_emoji())
 
     @commands.command()
     async def joke(self, ctx):
@@ -178,6 +187,7 @@ class Fun(commands.Cog):
         
     @commands.command()
     async def tttoe(self, ctx, p2=None):
+        """Tic Tac Toe with a friend!"""
         p2 = p2 or ctx.message.author.mention
         if self.db['started'] == True:
             await ctx.send(f' A game is ongoing between {self.db["p1"]} and {self.db["p2"]}')  
@@ -201,10 +211,10 @@ class Fun(commands.Cog):
             await ctx.send(f'{self.db["p1"]} is X. ')
             await ctx.send(f'{self.db["p2"]} is O. ')
             await ctx.send('''```1|2|3\n4|5|6\n7|8|9```''')
-            await ctx.send('''```Use .i choice to input your choice.```''')
+            await ctx.send('''```Use .i choice to input your choice.\nUse .kill_game to kill the game.```''')
             await ctx.send(f"Its player X's turn. Enter a number: ")
             
-    @commands.command()
+    @commands.command(hidden=True)
     async def i(self, ctx, choice):
         if self.db['cp'] == 'X':
             if str(ctx.message.author.id) in self.db['p1']:  
@@ -315,7 +325,7 @@ class Fun(commands.Cog):
             else:
                 await ctx.send("It's not your turn / you aren't in the game")
                 
-    @commands.command()
+    @commands.command(hidden=True)
     async def kill_game(self, ctx):
         await ctx.send('Killed the game. ')
         self.db['started'] = False
