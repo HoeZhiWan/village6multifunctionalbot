@@ -124,7 +124,7 @@ class Board():
               if all(v == "O" for v in i):
                   return 'O'
   
-          if len(self.board.filled) == 9:
+          if len(self.board.list()) == 9:
               return 'Draw'
   
 def run_game():
