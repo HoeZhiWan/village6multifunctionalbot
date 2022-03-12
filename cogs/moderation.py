@@ -15,6 +15,7 @@ pf.censor_char = '@'
 class Moderation(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+        self.bot.handler = AntiSpamHandler(self.bot)
 
     @commands.Cog.listener()
     async def on_message(self, message):
@@ -27,9 +28,6 @@ class Moderation(commands.Cog):
             embed = discord.Embed(title="Profanity Detected!",description=msg, color=discord.Color.red())
             embed.set_author(name = message.author.display_name, icon_url = message.author.avatar_url)
             await message.channel.send(embed=embed)
-    
-        if message.content.startswith("Hello"):
-            await message.channel.send("World")
         
         await self.bot.handler.propagate(message)
 
