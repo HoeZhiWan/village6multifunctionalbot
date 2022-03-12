@@ -91,7 +91,7 @@ class Board():
               if all(v == "O" for v in i):
                   return 'O'
   
-          if len(board.filled) == 9:
+          if len(self.board.filled) == 9:
               return 'Draw'
   
 def run_game():
@@ -114,7 +114,6 @@ class Fun(commands.Cog):
         self.db = {}
         self.db['turn'] = 0
         self.db['started'] = False
-        self.db['cp'] = "X"
 
     @commands.command()
     async def emoji(self, ctx):
@@ -216,6 +215,7 @@ class Fun(commands.Cog):
             slots[7] = self.board.input_(str(8),str(8))
             slots[8] = self.board.input_(str(9),str(9))
             self.board.filled = list()
+            self.db['cp'] = "X"
             await ctx.send(f'{self.db["p1"]} is X. ')
             await ctx.send(f'{self.db["p2"]} is O. ')
             await ctx.send('''```1|2|3\n4|5|6\n7|8|9```''')
@@ -341,6 +341,10 @@ class Fun(commands.Cog):
         self.board.filled = []
         self.db['turn'] = 0
         self.db['cp'] = 'X'
+        
+    @commands.command(aliases=['8ball','eightball'])
+    async def _8ball(self, ctx,*,question):
+        await ctx.send(ball_gen(question))
 
         
 def setup(bot):

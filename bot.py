@@ -30,5 +30,6 @@ client.load_extension("cogs.info")
 client.load_extension("cogs.misc")
 client.load_extension("cogs.fun")
 client.load_extension("cogs.moderation")
+client.load_extension("cogs.greetings")
 
 client.run(os.environ['DISCORD_TOKEN'])
