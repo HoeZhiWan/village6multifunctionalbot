@@ -124,7 +124,7 @@ class Board():
               if all(v == "O" for v in i):
                   return 'O'
   
-          if len(self.board.list()) == 9:
+          if len(self.board.self.filled) == 9:
               return 'Draw'
   
 def run_game():
@@ -248,7 +248,7 @@ class Fun(commands.Cog):
             slots[7] = self.board.input_(str(8),str(8))
             slots[8] = self.board.input_(str(9),str(9))
             self.board.filled = list()
-            self.db['cp'] = "X"
+            self.db['cp'] = "O"
             await ctx.send(f'{self.db["p1"]} is X. ')
             await ctx.send(f'{self.db["p2"]} is O. ')
             await ctx.send('''```1|2|3\n4|5|6\n7|8|9```''')
@@ -377,13 +377,15 @@ class Fun(commands.Cog):
         
     @commands.command(aliases=['8ball','eightball'])
     async def _8ball(self, ctx,*,question):
+        """Ask a yes/no question, get a lifechanging answer"""
         await ctx.send(ball_gen(question))
         
     @commands.command()
     async def gif(self, ctx, topic='cute', *args):
-      for i in args:
-        topic += ' ' + i
-      await ctx.send(embed=generate_embed_gif(topic))
+        """Shows a random GIF regarding the topic​"""
+        for i in args:
+            topic += ' ' + i
+        await ctx.send(embed=generate_embed_gif(topic))
 
         
 def setup(bot):
