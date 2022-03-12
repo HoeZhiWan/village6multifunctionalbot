@@ -101,31 +101,32 @@ class Board():
         return self.board[int(board_coords[number])]
     
       def check_game(self):
-          rows = [[self.board[1], self.board[3], self.board[5]], [self.board[15], self.board[17], self.board[19]],
+        rows = [[self.board[1], self.board[3], self.board[5]], [self.board[15], self.board[17], self.board[19]],
                   [self.board[21], self.board[23], self.board[25]]]
-          columns = [[self.board[1], self.board[15], self.board[21]], [self.board[3], self.board[17], self.board[23]],
+        columns = [[self.board[1], self.board[15], self.board[21]], [self.board[3], self.board[17], self.board[23]],
                      [self.board[5], self.board[19], self.board[25]]]
-          horizontal_columns = [[self.board[1], self.board[17], self.board[25]],
+        horizontal_columns = [[self.board[1], self.board[17], self.board[25]],
                                 [self.board[5], self.board[17], self.board[21]]]
-          for i in rows:
-              if all(v == "X" for v in i):
-                  return 'X'
-              if all(v == "O" for v in i):
-                  return 'O'
-          for i in columns:
-              if all(v == "X" for v in i):
-                  return 'X'
-              if all(v == "O" for v in i):
-                  return 'O'
+        for i in rows:
+            if all(v == "X" for v in i):
+                return 'X'
+            if all(v == "O" for v in i):
+                return 'O'
+        for i in columns:
+            if all(v == "X" for v in i):
+                return 'X'
+            if all(v == "O" for v in i):
+                return 'O'
   
-          for i in horizontal_columns:
-              if all(v == "X" for v in i):
-                  return 'X'
-              if all(v == "O" for v in i):
-                  return 'O'
+        for i in horizontal_columns:
+            if all(v == "X" for v in i):
+                return 'X'
+            if all(v == "O" for v in i):
+                return 'O'
   
-          if len(self.board.self.filled) == 9:
-              return 'Draw'
+        return self.board
+        if len(self.board.filled) == 9:
+            return 'Draw'
   
 def run_game():
   pass
@@ -249,8 +250,8 @@ class Fun(commands.Cog):
             slots[8] = self.board.input_(str(9),str(9))
             self.board.filled = list()
             self.db['cp'] = "O"
-            await ctx.send(f'{self.db["p1"]} is X. ')
-            await ctx.send(f'{self.db["p2"]} is O. ')
+            await ctx.send(f'{self.db["p1"]} is O. ')
+            await ctx.send(f'{self.db["p2"]} is X. ')
             await ctx.send('''```1|2|3\n4|5|6\n7|8|9```''')
             await ctx.send('''```Use .i choice to input your choice.\nUse .kill_game to kill the game.```''')
             await ctx.send(f"Its player X's turn. Enter a number: ")
@@ -308,7 +309,7 @@ class Fun(commands.Cog):
                                 player = 'o'
                             self.db['cp'] = player.upper()
                 
-                            await ctx.send(f"Its player {player.upper()}'s turn. Enter a number: ")
+                        await ctx.send(f"Its player {player.upper()}'s turn. Enter a number: ")
                 else:
                     await ctx.send('No games have been started yet. ')
             else:
