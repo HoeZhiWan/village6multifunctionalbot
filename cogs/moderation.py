@@ -30,7 +30,17 @@ class Moderation(commands.Cog):
             await message.channel.send(embed=embed)
         
         await self.bot.handler.propagate(message)
-
+        
+    @commands.command()
+    async def clear(self, ctx, amount=None):
+        """Clear a specified amount of message"""
+        amount = amount or 10
+        try:
+            int(amount)
+        except:
+            return await ctx.reply("Please provide a valid number")
+        amount += 1
+        await ctx.channel.purge(limit=amount)
         
 def setup(bot):
     bot.add_cog(Moderation(bot))
