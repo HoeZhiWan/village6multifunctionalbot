@@ -129,7 +129,7 @@ class Misc(commands.Cog):
         await ctx.reply(f"Pong! {round(self.bot.latency * 1000)}ms latency.")
         await ctx.message.add_reaction("🟢")
         
-    @commands.command():
+    @commands.command()
     async def quotes(self, ctx):
         """Random Quotes from Famous People"""
         await ctx.reply(embed=quotes_())
