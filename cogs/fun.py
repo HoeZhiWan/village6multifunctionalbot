@@ -36,7 +36,7 @@ def generate_emoji():
   return random.choice(emoji_list)
 
 def generate_embed_gif(topic):
-  embed = discord.Embed(title="Gifs Function ON", description=f"Sending GIF:\n", color=discord.Color.purple()
+  embed = discord.Embed(title="Gifs Function ON", description=f"Sending GIF:\n", color=discord.Color.from_rgb(r(), r(), r()))
   embed.set_image(url=generate_gif(topic,100))
   embed.set_footer(text='--- Successful ---')
 
@@ -48,6 +48,9 @@ def ball_gen(question):
                 "Outlook not so good.", "Outlook good.", "Reply hazy, try again.", "Signs point to yes.", "Very doubtful.", "Without a doubt.",
                 "Yes.", "Yes – definitely.", "You may rely on it."]
     return f"Question: {question}\nAnswer: {random.choice(responses)}"
+    
+def r():
+  return random.randint(0,255)
 
 class Fun(commands.Cog):
     def __init__(self, bot):
