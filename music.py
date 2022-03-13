@@ -17,16 +17,9 @@ class Music(commands.Cog):
             print(f"Added {guild.id}, {guild.name} into song_queue dictionary.")
 
     async def check_queue(self, ctx):
-        if ctx.guild.id in self.song_queue:
-            if len(self.song_queue[ctx.guild.id]) > 0:
-                await self.play_song(ctx, self.song_queue[ctx.guild.id][0])
-                self.song_queue[ctx.guild.id].pop(0)
-        else:
-            self.song_queue[ctx.guild.id] = []
-            print(f"Added {self.guild.id}, {ctx.guild.name} into song_queue dictionary.")
-            if len(self.song_queue[ctx.guild.id]) > 0:
-                await self.play_song(ctx, self.song_queue[ctx.guild.id][0])
-                self.song_queue[ctx.guild.id].pop(0)
+        if len(self.song_queue[ctx.guild.id]) > 0:
+            await self.play_song(ctx, self.song_queue[ctx.guild.id][0])
+            self.song_queue[ctx.guild.id].pop(0)
 
     async def search_song(self, amount, song, get_url=False):
         info = await self.bot.loop.run_in_executor(None, lambda: youtube_dl.YoutubeDL({"format" : "bestaudio", "quiet" : True, "cookiefile":"cookies.txt"}).extract_info(f"ytsearch{amount}:{song}", download=False, ie_key="YoutubeSearch"))
@@ -77,6 +70,10 @@ class Music(commands.Cog):
                 return await ctx.send("Sorry, I could not find the given song, try using my search command.")
 
             song = result[0]
+            
+        if ctx.guild.id not in self.song_queue:
+            self.song_queue[ctx.guild.id] = []
+            print(f"Added {self.guild.id}, {ctx.guild.name} into song_queue dictionary.")
 
         if ctx.voice_client.source is not None:
             queue_len = len(self.song_queue[ctx.guild.id])
@@ -113,6 +110,10 @@ class Music(commands.Cog):
     @commands.command()
     async def queue(self, ctx): # display the current guilds queue
         """Check for the queue"""
+        if ctx.guild.id not in self.song_queue:
+            self.song_queue[ctx.guild.id] = []
+            print(f"Added {self.guild.id}, {ctx.guild.name} into song_queue dictionary.")
+            
         if len(self.song_queue[ctx.guild.id]) == 0:
             return await ctx.send("There are currently no songs in the queue.")
 
