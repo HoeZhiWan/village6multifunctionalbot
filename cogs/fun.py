@@ -129,6 +129,11 @@ class Fun(commands.Cog):
         for emoji in ['🪨',"🧻", "✂️"]:
             await msg.clear_reaction(emoji)
         await ctx.message.clear_reaction("🟢")
+        
+    @commands.command()
+    async def start_game():
+        """Start a game of Tic Tac Toe!"""
+        return
 
     @commands.command(aliases=['8ball','eightball'])
     async def _8ball(self, ctx,*,question):
