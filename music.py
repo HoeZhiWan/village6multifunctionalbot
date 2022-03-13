@@ -14,12 +14,19 @@ class Music(commands.Cog):
     def setup(self):
         for guild in self.bot.guilds:
             self.song_queue[guild.id] = []
-            print(f"Added {guild.id} into song_queue dictionary.")
+            print(f"Added {guild.id}, {guild.name} into song_queue dictionary.")
 
     async def check_queue(self, ctx):
-        if len(self.song_queue[ctx.guild.id]) > 0:
-            await self.play_song(ctx, self.song_queue[ctx.guild.id][0])
-            self.song_queue[ctx.guild.id].pop(0)
+        if ctx.guild.id in self.song_queue:
+            if len(self.song_queue[ctx.guild.id]) > 0:
+                await self.play_song(ctx, self.song_queue[ctx.guild.id][0])
+                self.song_queue[ctx.guild.id].pop(0)
+        else:
+            self.song_queue[ctx.guild.id] = []
+            print(f"Added {self.guild.id}, {ctx.guild.name} into song_queue dictionary.")
+            if len(self.song_queue[ctx.guild.id]) > 0:
+                await self.play_song(ctx, self.song_queue[ctx.guild.id][0])
+                self.song_queue[ctx.guild.id].pop(0)
 
     async def search_song(self, amount, song, get_url=False):
         info = await self.bot.loop.run_in_executor(None, lambda: youtube_dl.YoutubeDL({"format" : "bestaudio", "quiet" : True, "cookiefile":"cookies.txt"}).extract_info(f"ytsearch{amount}:{song}", download=False, ie_key="YoutubeSearch"))
