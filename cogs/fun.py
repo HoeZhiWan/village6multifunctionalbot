@@ -36,7 +36,7 @@ def generate_emoji():
   return random.choice(emoji_list)
 
 def generate_embed_gif(topic):
-  embed = discord.Embed(title="Gifs Function ON", description=f"Sending GIF:\n", color=discord.Color.from_rgb(r(), r(), r()))
+  embed = discord.Embed(title="Gifs Function ON", description=f"Sending GIF:\n", color=discord.Color.purple()
   embed.set_image(url=generate_gif(topic,100))
   embed.set_footer(text='--- Successful ---')
 
