@@ -73,7 +73,7 @@ class Music(commands.Cog):
             
         if ctx.guild.id not in self.song_queue:
             self.song_queue[ctx.guild.id] = []
-            print(f"Added {self.guild.id}, {ctx.guild.name} into song_queue dictionary.")
+            print(f"Added {ctx.guild.id}, {ctx.guild.name} into song_queue dictionary.")
 
         if ctx.voice_client.source is not None:
             queue_len = len(self.song_queue[ctx.guild.id])
@@ -112,7 +112,7 @@ class Music(commands.Cog):
         """Check for the queue"""
         if ctx.guild.id not in self.song_queue:
             self.song_queue[ctx.guild.id] = []
-            print(f"Added {self.guild.id}, {ctx.guild.name} into song_queue dictionary.")
+            print(f"Added {ctx.guild.id}, {ctx.guild.name} into song_queue dictionary.")
             
         if len(self.song_queue[ctx.guild.id]) == 0:
             return await ctx.send("There are currently no songs in the queue.")
